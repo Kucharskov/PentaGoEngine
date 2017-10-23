@@ -1,8 +1,8 @@
 #include <iostream>
 #include "Engine/Game.h"
 
-void main()
 //Testowy main
+int main()
 {
 	//Instancja silnika gry
 	Game g;
@@ -24,4 +24,5 @@ void main()
 	std::cout << "Wynik: " << (int)g.checkWin() << std::endl;
 
 	system("PAUSE");
+	return 0;
 }
