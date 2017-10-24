@@ -52,67 +52,57 @@ results Map::checkWin()
 	for (int i = 0; i < size; i++)
 		for (int j = 2; j < size - 2; j++)
 		{
-			if (mainTab[i][j] != states::clear &&
-				mainTab[i][j - 2] == mainTab[i][j - 1] &&
+			if (mainTab[i][j] == states::clear) continue;
+			if (mainTab[i][j - 2] == mainTab[i][j - 1] &&
 				mainTab[i][j - 1] == mainTab[i][j] &&
 				mainTab[i][j] == mainTab[i][j + 1] &&
 				mainTab[i][j + 1] == mainTab[i][j + 2])
-			{
 				if (mainTab[i][j] == states::black) black++;
-				else if (mainTab[i][j] == states::white) white++;
-			}
+				else white++;
 		}
 
 	//Szukanie wygranego w pionie
 	for (int i = 2; i < size - 2; i++)
 		for (int j = 0; j < size; j++)
 		{
-			if (mainTab[i][j] != states::clear &&
-				mainTab[i - 2][j] == mainTab[i - 1][j] &&
+			if (mainTab[i][j] == states::clear) continue;
+			if (mainTab[i - 2][j] == mainTab[i - 1][j] &&
 				mainTab[i - 1][j] == mainTab[i][j] &&
 				mainTab[i][j] == mainTab[i + 1][j] &&
 				mainTab[i + 1][j] == mainTab[i + 2][j])
-			{
 				if (mainTab[i][j] == states::black) black++;
-				else if (mainTab[i][j] == states::white) white++;
-			}
+				else white++;
 		}
 
 	//Szukanie wygranego po skosie dla obu przekatnych
 	for (int i = 2; i < size - 2; i++)
 		for (int j = 2; j < size - 2; j++)
 		{
-			if (mainTab[i][j] != states::clear &&
-				mainTab[i - 2][j - 2] == mainTab[i - 1][j - 1] &&
+			if (mainTab[i][j] == states::clear) continue;
+			if (mainTab[i - 2][j - 2] == mainTab[i - 1][j - 1] &&
 				mainTab[i - 1][j - 1] == mainTab[i][j] &&
 				mainTab[i][j] == mainTab[i + 1][j + 1] &&
 				mainTab[i + 1][j + 1] == mainTab[i + 2][j + 2])
-			{
 				if (mainTab[i][j] == states::black) black++;
-				else if (mainTab[i][j] == states::white) white++;
-			}
+				else white++;;
 
 			if (mainTab[i][j] != states::clear &&
 				mainTab[i - 2][j + 2] == mainTab[i - 1][j + 1] &&
 				mainTab[i - 1][j + 1] == mainTab[i][j] &&
 				mainTab[i][j] == mainTab[i + 1][j - 1] &&
 				mainTab[i + 1][j - 1] == mainTab[i + 2][j - 2])
-			{
 				if (mainTab[i][j] == states::black) black++;
-				else if (mainTab[i][j] == states::white) white++;
-			}
+				else white++;
 		}
 
 	//Zwracanie wyniku
 	if (black > 0 || white > 0)
-	{
 		if (black > 0 && white == 0)
 			return results::black;
 		else if (black == 0 && white > 0)
 			return results::white;
 		else
 			return results::draw;
-	}
 	else
 		return results::nowin;
 }
