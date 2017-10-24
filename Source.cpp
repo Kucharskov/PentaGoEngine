@@ -7,7 +7,7 @@ int main()
 	//Instancja silnika gry
 	Game g;
 
-	//Wykonanie ruchow dajacych wygrana dla bialych
+	//Wykonanie ruchow dajacych remis
 	g.move(0, 1);
 	g.move(1, 1);
 	g.move(0, 2);
