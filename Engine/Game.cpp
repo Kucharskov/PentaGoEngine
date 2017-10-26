@@ -7,8 +7,7 @@ Game::Game() : m(2, 3), lastState(states::clear) {
 }
 
 //Funkcja czyszczaca mape i resetujaca gre
-void Game::clear()
-{
+void Game::clear() {
 	m.clear();
 	lastState = states::clear;
 }
@@ -19,8 +18,7 @@ states Game::getState(int x, int y) {
 }
 
 //Funkcja wykonywania ruchu
-void Game::move(int x, int y)
-{
+void Game::move(int x, int y) {
 	//Obliczanie czyj ruch ma nastapic (zaczynaja zawsze biale)
 	if (lastState == states::clear) lastState = states::white;
 
@@ -35,19 +33,16 @@ void Game::move(int x, int y)
 }
 
 //Funkcja obracajaca w lewo segment na mapie
-void Game::rotateLeft(int x, int y)
-{
+void Game::rotateLeft(int x, int y) {
 	m.rotate(x, y, rotates::left);
 }
 
 //Funkcja obracajaca w prawo segment na mapie
-void Game::rotateRight(int x, int y)
-{
+void Game::rotateRight(int x, int y) {
 	m.rotate(x, y, rotates::right);
 }
 
 //Funkcja sprawdzajaca czy nastapila wygrana
-results Game::checkWin()
-{
+results Game::checkWin() {
 	return m.checkWin();
 }
