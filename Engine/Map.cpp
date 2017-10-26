@@ -2,11 +2,7 @@
 #include "Segment.h"
 
 //Konstruktor mapy
-Map::Map(int mapSize, int segmentSize) {
-	//Przypisywanie wymiarów
-	this->mapSize = mapSize;
-	this->segmentSize = segmentSize;
-
+Map::Map(int mSize, int sSize) : mapSize(mSize), segmentSize(sSize) {
 	//Deklarowanie tablicy pol
 	mainTab.resize(mapSize*segmentSize);
 	for (auto& row : mainTab)
@@ -28,8 +24,8 @@ void Map::clear() {
 			item->clear();
 }
 
-//Funkcja zwracajaca stan slotu z mapy
-void Map::setState(int x, int y, states slot) {
+//Funkcja ustawiajaca stan slotu na mapie
+void Map::move(int x, int y, states slot) {
 	mainTab[x][y] = slot;
 }
 

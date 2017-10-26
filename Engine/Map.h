@@ -14,11 +14,12 @@ protected:
 	std::vector<std::vector<Segment*>> segments;
 
 public:
+	/* Konstruktory */
 	Map(int, int);
 
 	/* Metody */
 	void clear();
-	void setState(int, int, states);
+	void move(int, int, states);
 	void rotate(int, int, rotates);
 	results checkWin();
 

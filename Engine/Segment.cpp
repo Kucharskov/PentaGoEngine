@@ -2,10 +2,7 @@
 #include "Map.h"
 
 //Konstruktor segmentu (logicznego wycinka mapy)
-Segment::Segment(Map* myMap, int xOffset, int yOffset) {
-	this->myMap = myMap;
-	this->xOffset = xOffset;
-	this->yOffset = yOffset;
+Segment::Segment(Map* m, int x, int y) : myMap(m), xOffset(x), yOffset(y) {
 }
 
 //Funkcja czyszczaca caly segment
@@ -13,17 +10,12 @@ void Segment::clear() {
 	int size = myMap->getSegmentSize();
 	for (int i = 0; i < size; i++)
 		for (int j = 0; j < size; j++)
-			setState(i, j, states::clear);
-}
-
-//Funkcja zwracajaca stan slotu z segmentu
-states Segment::getState(int x, int y) {
-	return myMap->getState(x + xOffset, y + yOffset);
+			move(i, j, states::clear);
 }
 
 //Funkcja ustawiajaca stan slotu w segmentze
-void Segment::setState(int x, int y, states slot) {
-	myMap->setState(x + xOffset, y + yOffset, slot);
+void Segment::move(int x, int y, states slot) {
+	myMap->move(x + xOffset, y + yOffset, slot);
 }
 
 //Funkcja obracajaca caly segment
@@ -44,7 +36,12 @@ void Segment::rotate(rotates dir) {
 	for (int i = 0; i < size; i++)
 		for (int j = 0; j < size; j++)
 			if (dir == rotates::left)
-				setState(i, j, tempTab[size - 1 - j][i]);
+				move(i, j, tempTab[size - 1 - j][i]);
 			else if (dir == rotates::right)
-				setState(i, j, tempTab[j][size - 1 - i]);
+				move(i, j, tempTab[j][size - 1 - i]);
+}
+
+//Funkcja zwracajaca stan slotu z segmentu
+states Segment::getState(int x, int y) {
+	return myMap->getState(x + xOffset, y + yOffset);
 }

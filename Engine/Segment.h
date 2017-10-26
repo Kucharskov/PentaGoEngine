@@ -12,12 +12,13 @@ protected:
 	int yOffset;
 
 public:
+	/* Konstruktory */
 	Segment(Map*, int, int);
 
 	/* Metody */
 	void clear();
-	states getState(int, int);
-	void setState(int, int, states);
+	void move(int, int, states);
 	void rotate(rotates);
+	states getState(int, int);
 };
 

@@ -28,7 +28,7 @@ void Game::move(int x, int y)
 	if (m.getState(x, y) == states::clear)
 	{
 		//Wykonanie ruchu
-		m.setState(x, y, lastState);
+		m.move(x, y, lastState);
 		//Przestawienie ruchu na nastepnego gracza
 		lastState = (lastState == states::white) ? states::black : states::white;
 	}
