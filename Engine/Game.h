@@ -15,10 +15,9 @@ public:
 
 	/* Metody */
 	void clear();
-	states getState(int, int);
 	void move(int, int);
-	void rotateLeft(int, int);
-	void rotateRight(int, int);
+	void rotate(int, int, rotates);
+	states getState(int, int);
 	results checkWin();
 
 	/* Metody uprzywilejowane */

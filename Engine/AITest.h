@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "Map.h"
 
-class AITest : Player {
+class AITest : public Player {
 public:
 	/* Konstruktory */
 	AITest(Map *, states);

@@ -30,8 +30,7 @@ void Map::move(int x, int y, states slot) {
 }
 
 //Funkcja obracajaca segment na mapie
-void Map::rotate(int x, int y, rotates dir)
-{
+void Map::rotate(int x, int y, rotates dir) {
 	if (x < mapSize && y < mapSize)
 		segments[y][x]->rotate(dir);
 }
@@ -46,8 +45,7 @@ results Map::checkWin()
 	int size = segmentSize*mapSize;
 	//Szukanie wygranego w poziomie
 	for (int i = 0; i < size; i++)
-		for (int j = 2; j < size - 2; j++)
-		{
+		for (int j = 2; j < size - 2; j++) {
 			if (mainTab[i][j] == states::clear) continue;
 			if (mainTab[i][j - 2] == mainTab[i][j - 1] &&
 				mainTab[i][j - 1] == mainTab[i][j] &&
@@ -59,8 +57,7 @@ results Map::checkWin()
 
 	//Szukanie wygranego w pionie
 	for (int i = 2; i < size - 2; i++)
-		for (int j = 0; j < size; j++)
-		{
+		for (int j = 0; j < size; j++) {
 			if (mainTab[i][j] == states::clear) continue;
 			if (mainTab[i - 2][j] == mainTab[i - 1][j] &&
 				mainTab[i - 1][j] == mainTab[i][j] &&
@@ -72,8 +69,7 @@ results Map::checkWin()
 
 	//Szukanie wygranego po skosie dla obu przekatnych
 	for (int i = 2; i < size - 2; i++)
-		for (int j = 2; j < size - 2; j++)
-		{
+		for (int j = 2; j < size - 2; j++) {
 			if (mainTab[i][j] == states::clear) continue;
 			if (mainTab[i - 2][j - 2] == mainTab[i - 1][j - 1] &&
 				mainTab[i - 1][j - 1] == mainTab[i][j] &&
