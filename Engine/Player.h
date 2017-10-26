@@ -15,6 +15,9 @@ public:
 	/* Metody */
 	void setState(states);
 
+	/* Metody uprzywilejowane */
+	states getState() const { return myState; };
+
 	/* Metody wirtualne */
 	virtual void move() = 0;
 };
