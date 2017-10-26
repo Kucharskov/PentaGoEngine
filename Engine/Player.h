@@ -6,11 +6,11 @@ class Player {
 protected:
 	/* Pola */
 	states myState;
-	Map* myMap;
+	Map& myMap;
 
 public:
 	/* Konstruktory */
-	Player(Map *, states);
+	Player(Map&, states);
 
 	/* Metody */
 	void setState(states);

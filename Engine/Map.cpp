@@ -13,7 +13,7 @@ Map::Map(int mSize, int sSize) : mapSize(mSize), segmentSize(sSize) {
 	for (int i = 0; i < mapSize; i++) {
 		segments[i].resize(mapSize);
 		for (int j = 0; j < mapSize; j++)
-			segments[i][j] = new Segment(this, j * segmentSize, i * segmentSize);
+			segments[i][j] = new Segment(*this, j * segmentSize, i * segmentSize);
 	}
 }
 

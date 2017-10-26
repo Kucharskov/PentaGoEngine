@@ -7,13 +7,13 @@ class Map;
 class Segment {
 protected:
 	/* Pola */
-	Map* myMap;
+	Map& myMap;
 	int xOffset;
 	int yOffset;
 
 public:
 	/* Konstruktory */
-	Segment(Map*, int, int);
+	Segment(Map&, int, int);
 
 	/* Metody */
 	void clear();
