@@ -19,8 +19,8 @@ public:
 
 	/* Metody */
 	void clear();
-	void move(int, int, states);
-	void rotate(int, int, rotates);
+	bool move(int, int, states);
+	bool rotate(int, int, rotates);
 	results checkWin();
 
 	/* Metody uprzywilejowane */

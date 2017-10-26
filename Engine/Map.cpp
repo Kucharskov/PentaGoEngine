@@ -25,14 +25,30 @@ void Map::clear() {
 }
 
 //Funkcja ustawiajaca stan slotu na mapie
-void Map::move(int x, int y, states slot) {
-	mainTab[x][y] = slot;
+bool Map::move(int x, int y, states slot) {
+	int size = segmentSize*mapSize;
+	//Zabepieczenie przed nieistniejacym elementem
+	if (x > size || y > size) return false;
+
+	//Zabepizeczenie przed nadpisaniem czyjegos ruchu
+	if (mainTab[x][y] != states::clear) return false;
+	else {
+		//Wykonanie ruchu
+		mainTab[x][y] = slot;
+		return true;
+	}
 }
 
 //Funkcja obracajaca segment na mapie
-void Map::rotate(int x, int y, rotates dir) {
-	if (x < mapSize && y < mapSize)
+bool Map::rotate(int x, int y, rotates dir) {
+	int size = segmentSize*mapSize;
+	//Zabepieczenie przed nieistniejacym elementem
+	if (x > size || y > size) return false;
+	else {
+		//Wykonanie obrotu
 		segments[y][x]->rotate(dir);
+		return true;
+	}
 }
 
 //Funkcja sprawdzajaca czy nastapila wygrana

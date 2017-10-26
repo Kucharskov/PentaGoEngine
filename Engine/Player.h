@@ -19,5 +19,5 @@ public:
 	states getState() const { return myState; };
 
 	/* Metody wirtualne */
-	virtual void move() = 0;
+	//virtual void move() = 0;
 };

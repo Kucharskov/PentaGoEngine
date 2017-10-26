@@ -13,22 +13,26 @@ void Game::clear() {
 }
 
 //Funkcja wykonywania ruchu
-void Game::move(int x, int y) {
+bool Game::move(Player & p, int x, int y) {
+	//Zabezpieczenie przed blednym Playerem
+	if (p.getState() == states::clear) return false;
+
 	//Obliczanie czyj ruch ma nastapic (zaczynaja zawsze biale)
 	if (lastState == states::clear) lastState = states::white;
 
-	//Sprawdzanie czy slot jest dostepny
-	if (m.getState(x, y) == states::clear) {
-		//Wykonanie ruchu
-		m.move(x, y, lastState);
-		//Przestawienie ruchu na nastepnego gracza
-		lastState = (lastState == states::white) ? states::black : states::white;
-	}
+	//Zabezpieczenie przed wykonaniem podwojnego ruchu przez tego samego gracza
+	if (p.getState() != lastState) return false;
+
+	//Przestawienie ruchu na nastepnego gracza
+	lastState = (lastState == states::white) ? states::black : states::white;
+
+	//Wykonywanie ruchu i zwracanie powodzenia
+	return m.move(x, y, p.getState());
 }
 
 //Funkcja obracajaca w lewo segment na mapie
-void Game::rotate(int x, int y, rotates dir) {
-	m.rotate(x, y, dir);
+bool Game::rotate(int x, int y, rotates dir) {
+	return m.rotate(x, y, dir);
 }
 
 //Funkcja zwracajaca wartosc danego pola

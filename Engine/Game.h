@@ -1,6 +1,7 @@
 #pragma once
 #include "MainTypes.h"
 #include "Map.h"
+#include "Player.h"
 
 class Game
 {
@@ -15,8 +16,8 @@ public:
 
 	/* Metody */
 	void clear();
-	void move(int, int);
-	void rotate(int, int, rotates);
+	bool move(Player&, int, int);
+	bool rotate(int, int, rotates);
 	states getState(int, int);
 	results checkWin();
 
@@ -24,8 +25,10 @@ public:
 	int getSize() const { return m.getMapSize() * m.getSegmentSize(); };
 	int getMapSize() const { return m.getMapSize(); };
 	int getSegmentSize() const { return m.getSegmentSize(); };
+	Map& getMap() { return m; }
 
 	/* Klasy zaprzyjaznione */
 	friend class MainWindow;
+
 };
 
