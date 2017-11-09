@@ -1,65 +1,89 @@
 #include <iostream>
 #include "Engine/Game.h"
+#include "Engine/AI.h"
+#include "AITest.h"
 
-//Tymczasowy blok pisany na piechote
-#include "Engine/Player.h"
-class Human : public Player {
-public:
-	Human(Map& m, states s = states::clear) : Player(m, s) {}
-}; 
-class AI : public Player {
-public:
-	AI(Map& m, states s = states::clear) : Player(m, s) {}
-};
-//EOF: Tymczasowy blok
+//Z pozdrowieniami dla nastoletnich, zeby nie pisac ciagle std::
+using std::cin;
+using std::cout;
+using std::endl;
+
+//Funkcja rysujaca mape
+void showMap(Map &m) {
+	//Rysowanie planszy dla podgladu
+	for (int i = 0; i < m.getSize(); i++) {
+		for (int j = 0; j < m.getSize(); j++) {
+			switch ((int)m.getState(j, i)) {
+			case 0:
+				cout << "   ";
+				break;
+			case 1:
+				cout << " B ";
+				break;
+			case 2:
+				cout << " W ";
+				break;
+			}
+			if (j < m.getSize() - 1) cout << "|";
+			else cout << endl;
+		}
+		if (i < m.getSize() - 1) for (int k = 0; k < m.getSize(); k++) cout << "--- ";
+		cout << endl;
+	}
+}
+
+//Funkcja wykonujaca ruch gracza
+void userMove(Game &g) {
+	char dir;
+	moveData md;
+
+	cout << "Podaj pole do zajecia [X, Y]: ";
+	cin >> md.x >> md.y;
+
+	cout << "Podaj segment do obrotu [X, Y]: ";
+	cin >> md.rotX >> md.rotY;
+
+	cout << "Podaj kierunek obrotu " << md.rotX << ", " << md.rotY << " [L, R]: ";
+	cin >> dir;
+	md.dir = (dir == 'L') ? rotates::left : rotates::right;
+	md.dir = rotates::left;
+
+	g.move(md);
+}
 
 //Testowy main
-int main()
-{
+int main() {
 	//Inicjalizacja silnika gry
 	Game g;
 
-	//Inicializacja graczy
-	Human h(g.getMap(), states::white);
-	AI ai(g.getMap(), states::black);
+	//Wybor trybu gry
+	int gameMode;
+	cout << "UWAGA: Pamietaj ze pola sa indeksowane od ZERA!\n";
+	cout << "Wybierz tryb gry:\n [1] Human vs Human\n [2] AI vs Human\nWybor: ";
+	cin >> gameMode;
 
-	//Wykonanie ruchow dajacych remis
-	g.move(h, 0, 0);
-	g.move(ai, 1, 0);
-	g.move(h, 0, 1);
-	g.move(ai, 1, 1);
-	g.move(h, 0, 2);
-	g.move(ai, 1, 2);
-	g.move(h, 0, 3);
-	g.move(ai, 1, 3);
-	g.move(h, 0, 4);
-	g.move(ai, 1, 4);
+	//Dodawanie AI do gry
+	if (gameMode == 2) g.setAI(new AITest(g.getMap()));
 
-	//Rysowanie planszy dla podgladu
-	for (int i = 0; i < g.getSize(); i++) {
-		for (int j = 0; j < g.getSize(); j++) {
-			switch ((int)g.getState(j, i)) {
-			case 0:
-				std::cout << "   ";
-				break;
-			case 1:
-				std::cout << " B ";
-				break;
-			case 2:
-				std::cout << " W ";
-				break;
-			}
-			if (j < g.getSize()-1) std::cout << "|";
-			else std::cout << std::endl;
-		}
-		if (i < g.getSize() - 1) for (int k = 0; k < g.getSize(); k++) std::cout << "--- ";
-		std::cout << std::endl;
-	}
+	//Glowna petla gry
+	do {
+		system("CLS");
+		showMap(g.getMap());
+		userMove(g);
+	} while (g.checkWin() == results::nowin);
 
-	//Sprawdzanie wyniku (3 to states::draw)
-	std::cout << "Oczekiwany wynik to 3\n";
-	std::cout << "Wynik: " << (int)g.checkWin() << std::endl;
-
+	//Podawanie wyniku
+	system("CLS");
+	showMap(g.getMap());
+	if (g.checkWin() == results::draw) cout << "Remis!" << endl;
+	else if (g.checkWin() == results::black) cout << "Wygraly czarne!" << endl;
+	else if (g.checkWin() == results::white) cout << "Wygraly biale!" << endl;
+	
 	system("PAUSE");
 	return 0;
 }
+
+//TODO:
+// - Dopisaæ AI vs AI
+// - Dopisaæ sprawdzanie wyniku po jedynie ruchu gracza, potem po ruchu AI
+// - Dopisaæ zabezpieczenie przed zapelnieniem calej planszy

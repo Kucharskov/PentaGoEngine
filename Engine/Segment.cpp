@@ -10,12 +10,12 @@ void Segment::clear() {
 	int size = myMap.getSegmentSize();
 	for (int i = 0; i < size; i++)
 		for (int j = 0; j < size; j++)
-			move(i, j, states::clear);
+			setState(i, j, states::clear);
 }
 
-//Funkcja ustawiajaca stan slotu w segmentze
-void Segment::move(int x, int y, states slot) {
-	myMap.move(x + xOffset, y + yOffset, slot);
+//Funkcja ustawiajaca stan slotu w segmencie
+void Segment::setState(int x, int y, states slot) {
+	myMap.move(x + xOffset, y + yOffset, slot, true);
 }
 
 //Funkcja obracajaca caly segment
@@ -36,9 +36,9 @@ void Segment::rotate(rotates dir) {
 	for (int i = 0; i < size; i++)
 		for (int j = 0; j < size; j++)
 			if (dir == rotates::left)
-				move(i, j, tempTab[size - 1 - j][i]);
+				setState(i, j, tempTab[size - 1 - j][i]);
 			else if (dir == rotates::right)
-				move(i, j, tempTab[j][size - 1 - i]);
+				setState(i, j, tempTab[j][size - 1 - i]);
 }
 
 //Funkcja zwracajaca stan slotu z segmentu

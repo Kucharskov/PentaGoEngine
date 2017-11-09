@@ -17,7 +17,7 @@ public:
 
 	/* Metody */
 	void clear();
-	void move(int, int, states);
+	void setState(int, int, states);
 	void rotate(rotates);
 	states getState(int, int);
 };

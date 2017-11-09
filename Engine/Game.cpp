@@ -2,8 +2,14 @@
 
 //Konstruktor silnika gry
 //Awesome job by M. Kucharskov (https://kucharskov.pl)
-Game::Game() : m(2, 3), lastState(states::clear) {
+Game::Game() : m(2, 3), lastState(states::clear), ai(nullptr) {
 	clear();
+}
+
+//Dekonstruktor silnika gry
+Game::~Game() {
+	//Czyszczenie referencji
+	if (ai != nullptr) delete ai;
 }
 
 //Funkcja czyszczaca mape i resetujaca gre
@@ -13,26 +19,27 @@ void Game::clear() {
 }
 
 //Funkcja wykonywania ruchu
-bool Game::move(Player & p, int x, int y) {
-	//Zabezpieczenie przed blednym Playerem
-	if (p.getState() == states::clear) return false;
-
+bool Game::move(moveData md, bool doAIMove) {
 	//Obliczanie czyj ruch ma nastapic (zaczynaja zawsze biale)
 	if (lastState == states::clear) lastState = states::white;
+	
+	//Wykonywanie ruchu
+	if (!(m.move(md.x, md.y, lastState) || m.rotate(md.rotX, md.rotY, md.dir))) return false;
+	else 
+	//Dla gracza AI
+	if (ai != nullptr) {
+		//Przestawienie ruchu na nastepnego gracza
+		lastState = (lastState == states::white) ? states::black : states::white;
 
-	//Zabezpieczenie przed wykonaniem podwojnego ruchu przez tego samego gracza
-	if (p.getState() != lastState) return false;
+		//Wykonanie ruchu AI
+		if (doAIMove) move(ai->move(), !doAIMove);
+	}
 
 	//Przestawienie ruchu na nastepnego gracza
 	lastState = (lastState == states::white) ? states::black : states::white;
-
-	//Wykonywanie ruchu i zwracanie powodzenia
-	return m.move(x, y, p.getState());
-}
-
-//Funkcja obracajaca w lewo segment na mapie
-bool Game::rotate(int x, int y, rotates dir) {
-	return m.rotate(x, y, dir);
+	
+	//Zwracanie true tymczasowo
+	return true;
 }
 
 //Funkcja zwracajaca wartosc danego pola

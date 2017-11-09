@@ -2,7 +2,7 @@
 #include "Segment.h"
 
 //Konstruktor mapy
-Map::Map(int mSize, int sSize) : mapSize(mSize), segmentSize(sSize) {
+Map::Map(int mSize, int sSize) : mapSize(mSize), segmentSize(sSize), moveCounter(0) {
 	//Deklarowanie tablicy pol
 	mainTab.resize(mapSize*segmentSize);
 	for (auto& row : mainTab)
@@ -19,19 +19,20 @@ Map::Map(int mSize, int sSize) : mapSize(mSize), segmentSize(sSize) {
 
 //Funkcja czyszczaca cala mape
 void Map::clear() {
+	moveCounter = 0;
 	for (auto& row : segments)
 		for (auto& item : row)
 			item->clear();
 }
 
 //Funkcja ustawiajaca stan slotu na mapie
-bool Map::move(int x, int y, states slot) {
+bool Map::move(int x, int y, states slot, bool force) {
 	int size = segmentSize*mapSize;
 	//Zabepieczenie przed nieistniejacym elementem
-	if (x > size || y > size) return false;
+	if (x > size || y > size || x < 0 || y < 0) return false;
 
 	//Zabepizeczenie przed nadpisaniem czyjegos ruchu
-	if (mainTab[x][y] != states::clear) return false;
+	if (!force && mainTab[x][y] != states::clear) return false;
 	else {
 		//Wykonanie ruchu
 		mainTab[x][y] = slot;
@@ -43,7 +44,7 @@ bool Map::move(int x, int y, states slot) {
 bool Map::rotate(int x, int y, rotates dir) {
 	int size = segmentSize*mapSize;
 	//Zabepieczenie przed nieistniejacym elementem
-	if (x > size || y > size) return false;
+	if (x > size || y > size || x < 0 || y < 0) return false;
 	else {
 		//Wykonanie obrotu
 		segments[y][x]->rotate(dir);
@@ -52,8 +53,7 @@ bool Map::rotate(int x, int y, rotates dir) {
 }
 
 //Funkcja sprawdzajaca czy nastapila wygrana
-results Map::checkWin()
-{
+results Map::checkWin() {
 	//Deklarowanie pomocniczych zmiennych do zliczania wygranych
 	int black = 0;
 	int white = 0;
@@ -104,13 +104,9 @@ results Map::checkWin()
 		}
 
 	//Zwracanie wyniku
-	if (black > 0 || white > 0)
-		if (black > 0 && white == 0)
-			return results::black;
-		else if (black == 0 && white > 0)
-			return results::white;
-		else
-			return results::draw;
-	else
-		return results::nowin;
+	if (black > 0 || white > 0) {
+		if (black > 0 && white == 0) return results::black;
+		else if (black == 0 && white > 0) return results::white;
+		else return results::draw;
+	} else return results::nowin;
 }

@@ -25,7 +25,18 @@ enum class results {
 };
 
 //Enumerator opisuj¹cy dozwolone obroty:
+//left - lewo
+//right - prawo
 enum class rotates {
 	left,
 	right
+};
+
+//Paczka danych odpowiadajacych za ruch
+struct moveData {
+	int x = -1;
+	int y = -1;
+	int rotX = -1;
+	int rotY = -1;
+	rotates dir;
 };
