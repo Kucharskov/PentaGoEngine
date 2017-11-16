@@ -2,7 +2,7 @@
 #include <vector>
 #include "MainTypes.h"
 
-//Forward declaration
+/* Forward declaration */
 class Segment;
 
 class Map {

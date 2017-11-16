@@ -1,24 +1,26 @@
 #include "Game.h"
 
-//Konstruktor silnika gry
-//Awesome job by M. Kucharskov (https://kucharskov.pl)
+/*
+Konstruktor silnika gry
+Awesome job by M. Kucharskov (https://kucharskov.pl)
+*/
 Game::Game() : m(2, 3), lastState(states::clear), mode(modes::HuH), ai1(nullptr), ai2(nullptr) {
 	clear();
 }
 
-//Dekonstruktor silnika gry
+//Dekonstruktor silnika gry 
 Game::~Game() {
 	//Czyszczenie referencji
 	clearAI();
 }
 
-//Funkcja czyszczaca mape i resetujaca gre
+//Funkcja czyszczaca mape i resetujaca gre 
 void Game::clear() {
 	m.clear();
 	lastState = states::clear;
 }
 
-//Funkcja wykonywania ruchu
+//Funkcja wykonywania ruchu 
 bool Game::move(moveData md, bool AImove) {
 	//Obliczanie czyj ruch ma nastapic (zaczynaja zawsze biale)
 	if (lastState == states::clear) lastState = states::white;
@@ -45,13 +47,13 @@ bool Game::move(moveData md, bool AImove) {
 	return true;
 }
 
-//Funkcja czyszczaca referencje do AI
+//Funkcja czyszczaca referencje do AI 
 void Game::clearAI() {
 	if (ai1 != nullptr) delete ai1;
 	if (ai2 != nullptr) delete ai2;
 }
 
-//Funkcja ustawiajaca sztuczne inteligencje
+//Funkcja ustawiajaca sztuczne inteligencje 
 void Game::setAI(AI* a1, AI* a2) {
 	//Tryb HuH
 	if (a1 == nullptr && a2 == nullptr) mode = modes::HuH;
@@ -68,7 +70,7 @@ void Game::setAI(AI* a1, AI* a2) {
 	}
 }
 
-//Funkcja wykonujaca ruch AI
+//Funkcja wykonujaca ruch AI 
 void Game::runAI() {
 	//Ruch AI dla trybu HuA
 	if (mode == modes::HuA) {
@@ -89,12 +91,12 @@ void Game::runAI() {
 	}
 }
 
-//Funkcja zwracajaca wartosc danego pola
+//Funkcja zwracajaca wartosc danego pola 
 states Game::getState(int x, int y) {
 	return m.getState(x, y);
 }
 
-//Funkcja sprawdzajaca czy nastapila wygrana
+//Funkcja sprawdzajaca czy nastapila wygrana 
 results Game::checkWin() {
 	return m.checkWin();
 }

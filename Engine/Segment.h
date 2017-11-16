@@ -1,7 +1,7 @@
 #pragma once
 #include "MainTypes.h"
 
-//Forward declaration
+/* Forward declaration */
 class Map;
 
 class Segment {

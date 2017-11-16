@@ -1,11 +1,11 @@
 #include "Segment.h"
 #include "Map.h"
 
-//Konstruktor segmentu (logicznego wycinka mapy)
+//Konstruktor segmentu (logicznego wycinka mapy) 
 Segment::Segment(Map& m, int x, int y) : myMap(m), xOffset(x), yOffset(y) {
 }
 
-//Funkcja czyszczaca caly segment
+//Funkcja czyszczaca caly segment 
 void Segment::clear() {
 	int size = myMap.getSegmentSize();
 	for (int i = 0; i < size; i++)
@@ -13,12 +13,12 @@ void Segment::clear() {
 			setState(i, j, states::clear);
 }
 
-//Funkcja ustawiajaca stan slotu w segmencie
+//Funkcja ustawiajaca stan slotu w segmencie 
 void Segment::setState(int x, int y, states slot) {
 	myMap.move(x + xOffset, y + yOffset, slot, true);
 }
 
-//Funkcja obracajaca caly segment
+//Funkcja obracajaca caly segment 
 void Segment::rotate(rotates dir) {
 	//Deklarowanie tablicy tymczasowej
 	std::vector<std::vector<states>> tempTab;
@@ -41,7 +41,7 @@ void Segment::rotate(rotates dir) {
 				setState(i, j, tempTab[j][size - 1 - i]);
 }
 
-//Funkcja zwracajaca stan slotu z segmentu
+//Funkcja zwracajaca stan slotu z segmentu 
 states Segment::getState(int x, int y) {
 	return myMap.getState(x + xOffset, y + yOffset);
 }

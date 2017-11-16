@@ -1,5 +1,8 @@
 #include "AI.h"
 
-//Konstruktor AI
+/*
+Konstruktor AI
+Pamietaj aby dziedziczac przypisywac wartosc do myMap!!
+*/
 AI::AI(Map& m) : myMap(m) {
 }

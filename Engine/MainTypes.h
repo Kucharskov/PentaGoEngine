@@ -1,10 +1,12 @@
 #pragma once
 
-//Enumerator opisujacy dozwolone stany:
-// clear - brak stanu
-// black - stan czarny
-// white - stan bialy
-// err - pole nieistniejace
+/*
+Enumerator opisujacy dozwolone stany:
+ clear - brak stanu
+ black - stan czarny
+ white - stan bialy
+ err - pole nieistniejace
+*/
 enum class states {
 	clear,
 	black,
@@ -12,11 +14,13 @@ enum class states {
 	err
 };
 
-//Enumerator opisujacy dozwolone wyniki:
-// nowin - brak wyniku
-// black - stan czarny
-// white - stan bialy
-// draw - remis
+/*
+Enumerator opisujacy dozwolone wyniki:
+ nowin - brak wyniku
+ black - stan czarny
+ white - stan bialy
+ draw - remis
+*/
 enum class results {
 	nowin,
 	black,
@@ -24,20 +28,24 @@ enum class results {
 	draw
 };
 
-//Enumerator opisujacy dozwolone obroty:
-// none - brak obrotu
-// left - lewo
-// right - prawo
+/*
+Enumerator opisujacy dozwolone obroty:
+ none - brak obrotu
+ left - lewo
+ right - prawo
+*/
 enum class rotates {
 	none,
 	left,
 	right
 };
 
-//Enumerator opisujacy tryby pracy silnika:
-// HuH - Human vs Human
-// HuA - Human vs AI
-// AuA - AI vs AI
+/*
+Enumerator opisujacy tryby pracy silnika:
+ HuH - Human vs Human
+ HuA - Human vs AI
+ AuA - AI vs AI
+*/
 enum class modes {
 	HuH,
 	HuA,
