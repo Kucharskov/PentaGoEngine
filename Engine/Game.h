@@ -9,7 +9,8 @@ protected:
 	/* Pola */
 	Map m;
 	states lastState;
-	AI* ai;
+	AI* ai1;
+	AI* ai2;
 
 public:
 	/* Konstruktory */
@@ -21,9 +22,10 @@ public:
 	/* Metody */
 	void clear();
 	bool move(moveData, bool = false);
+	void setAI(AI* = nullptr, AI* = nullptr);
+	void runAI();
 	states getState(int, int);
 	results checkWin();
-	void setAI(AI* a) { ai = a; };
 
 	/* Metody uprzywilejowane */
 	int getSize() const { return m.getSize(); };

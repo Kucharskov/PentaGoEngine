@@ -38,5 +38,5 @@ struct moveData {
 	int y = -1;
 	int rotX = -1;
 	int rotY = -1;
-	rotates dir;
+	rotates dir = rotates::left;
 };

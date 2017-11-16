@@ -5,17 +5,19 @@ AITest::AITest(Map& m) : AI(m) {
 
 moveData AITest::move() {
 	moveData md;
+	
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> randomState(0, myMap.getSize()-1);
+	std::uniform_int_distribution<int> randomSegment(0, myMap.getMapSize()-1);
 
-	for (int j = 0; j < myMap.getSize(); j++)
-		for (int i = 0; i < myMap.getSize(); i++)
-			if (myMap.getState(i, j) == states::clear) {
-				md.x = i;
-				md.y = j;
+	do {
+		md.x = randomState(gen);
+		md.y = randomState(gen);
+		md.rotX = randomSegment(gen);
+		md.rotY = randomSegment(gen);
+		md.dir = ((md.x * md.rotX) % 2 == 0) ? rotates::left : rotates::right;
+	} while (myMap.getState(md.x, md.y) != states::clear);
 
-				md.rotX = 1;
-				md.rotY = 1;
-
-				md.dir = rotates::left;
-				return md;
-			}
+	return md;
 }

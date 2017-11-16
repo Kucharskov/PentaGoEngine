@@ -18,10 +18,10 @@ void showMap(Map &m) {
 				cout << "   ";
 				break;
 			case 1:
-				cout << " B ";
+				cout << " @ ";
 				break;
 			case 2:
-				cout << " W ";
+				cout << " O ";
 				break;
 			}
 			if (j < m.getSize() - 1) cout << "|";
@@ -53,24 +53,27 @@ void userMove(Game &g) {
 
 //Testowy main
 int main() {
-	//Inicjalizacja silnika gry
-	Game g;
 
 	//Wybor trybu gry
 	int gameMode;
 	cout << "UWAGA: Pamietaj ze pola sa indeksowane od ZERA!\n";
-	cout << "Wybierz tryb gry:\n [1] Human vs Human\n [2] AI vs Human\nWybor: ";
+	cout << "Wybierz tryb gry:\n [1] Human vs Human\n [2] AI vs Human\n [3] AI vs AI\nWybor: ";
 	cin >> gameMode;
 
-	//Dodawanie AI do gry
+	//Inicjalizacja silnika gry
+	Game g;
 	if (gameMode == 2) g.setAI(new AITest(g.getMap()));
-
+	else if (gameMode == 3) g.setAI(new AITest(g.getMap()), new AITest(g.getMap()));
+	
 	//Glowna petla gry
-	do {
-		system("CLS");
-		showMap(g.getMap());
-		userMove(g);
-	} while (g.checkWin() == results::nowin);
+	if (gameMode != 3) {
+		do {
+			system("CLS");
+			showMap(g.getMap());
+			userMove(g);
+		} while (g.checkWin() == results::nowin);
+	}
+	else g.runAI();
 
 	//Podawanie wyniku
 	system("CLS");
@@ -84,6 +87,7 @@ int main() {
 }
 
 //TODO:
-// - Dopisaæ AI vs AI
-// - Dopisaæ sprawdzanie wyniku po jedynie ruchu gracza, potem po ruchu AI
-// - Dopisaæ zabezpieczenie przed zapelnieniem calej planszy
+// - Zabezpieczyc gre przed pustym ai1 == nullptr
+// - Zabezpieczyc gre przed uruchomieniem runAI bez ustawienia AI
+// - Zabezpieczyc gre przed zajeciem/obroceniem nieistniejacego/zajetego elementu
+// - Pilnowac przelaczanie graczy

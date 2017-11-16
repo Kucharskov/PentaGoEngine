@@ -36,6 +36,8 @@ bool Map::move(int x, int y, states slot, bool force) {
 	else {
 		//Wykonanie ruchu
 		mainTab[x][y] = slot;
+		//Inkrementacja licznika ruchów
+		if(!force) moveCounter++;
 		return true;
 	}
 }
@@ -108,5 +110,6 @@ results Map::checkWin() {
 		if (black > 0 && white == 0) return results::black;
 		else if (black == 0 && white > 0) return results::white;
 		else return results::draw;
-	} else return results::nowin;
+	} else if (moveCounter >= getSize()*getSize()) return results::draw;
+	else return results::nowin;
 }
