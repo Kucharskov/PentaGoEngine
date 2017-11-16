@@ -9,6 +9,7 @@ protected:
 	/* Pola */
 	Map m;
 	states lastState;
+	modes mode;
 	AI* ai1;
 	AI* ai2;
 
@@ -22,6 +23,7 @@ public:
 	/* Metody */
 	void clear();
 	bool move(moveData, bool = false);
+	void clearAI();
 	void setAI(AI* = nullptr, AI* = nullptr);
 	void runAI();
 	states getState(int, int);

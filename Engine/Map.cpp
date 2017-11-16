@@ -27,9 +27,9 @@ void Map::clear() {
 
 //Funkcja ustawiajaca stan slotu na mapie
 bool Map::move(int x, int y, states slot, bool force) {
-	int size = segmentSize*mapSize;
-	//Zabepieczenie przed nieistniejacym elementem
-	if (x > size || y > size || x < 0 || y < 0) return false;
+	int size = getSize();
+	//Zabepieczenie przed niepoprawnym ruchem
+	if (x >= size || y >= size || x < 0 || y < 0) return false;
 
 	//Zabepizeczenie przed nadpisaniem czyjegos ruchu
 	if (!force && mainTab[x][y] != states::clear) return false;
@@ -44,9 +44,9 @@ bool Map::move(int x, int y, states slot, bool force) {
 
 //Funkcja obracajaca segment na mapie
 bool Map::rotate(int x, int y, rotates dir) {
-	int size = segmentSize*mapSize;
-	//Zabepieczenie przed nieistniejacym elementem
-	if (x > size || y > size || x < 0 || y < 0) return false;
+	int size = getSize();
+	//Zabepieczenie przed niepoprawnym ruchem
+	if (x >= size || y >= size || x < 0 || y < 0 || dir == rotates::none) return false;
 	else {
 		//Wykonanie obrotu
 		segments[y][x]->rotate(dir);

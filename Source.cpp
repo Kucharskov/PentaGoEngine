@@ -45,7 +45,7 @@ void userMove(Game &g) {
 
 	cout << "Podaj kierunek obrotu " << md.rotX << ", " << md.rotY << " [L, R]: ";
 	cin >> dir;
-	md.dir = (dir == 'L') ? rotates::left : rotates::right;
+	md.dir = (dir == 'L' || dir == 'l') ? rotates::left : rotates::right;
 	md.dir = rotates::left;
 
 	g.move(md);
@@ -85,9 +85,3 @@ int main() {
 	system("PAUSE");
 	return 0;
 }
-
-//TODO:
-// - Zabezpieczyc gre przed pustym ai1 == nullptr
-// - Zabezpieczyc gre przed uruchomieniem runAI bez ustawienia AI
-// - Zabezpieczyc gre przed zajeciem/obroceniem nieistniejacego/zajetego elementu
-// - Pilnowac przelaczanie graczy
