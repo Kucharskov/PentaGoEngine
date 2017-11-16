@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Engine/Game.h"
 #include "Engine/AI.h"
-#include "AITest.h"
+#include "RandomAI.h"
 
 //Z pozdrowieniami dla nastoletnich, zeby nie pisac ciagle std::
 using std::cin;
@@ -62,25 +62,52 @@ int main() {
 
 	//Inicjalizacja silnika gry
 	Game g;
-	if (gameMode == 2) g.setAI(new AITest(g.getMap()));
-	else if (gameMode == 3) g.setAI(new AITest(g.getMap()), new AITest(g.getMap()));
 	
-	//Glowna petla gry
-	if (gameMode != 3) {
+	//Tryb gry 1 i 2
+	if (gameMode == 1 || gameMode == 2) {
+		if (gameMode == 2) g.setAI(new RandomAI(g.getMap()));
 		do {
 			system("CLS");
 			showMap(g.getMap());
 			userMove(g);
 		} while (g.checkWin() == results::nowin);
-	}
-	else g.runAI();
 
-	//Podawanie wyniku
-	system("CLS");
-	showMap(g.getMap());
-	if (g.checkWin() == results::draw) cout << "Remis!" << endl;
-	else if (g.checkWin() == results::black) cout << "Wygraly czarne!" << endl;
-	else if (g.checkWin() == results::white) cout << "Wygraly biale!" << endl;
+		//Podawanie wyniku
+		system("CLS");
+		showMap(g.getMap());
+		if (g.checkWin() == results::draw) cout << "Remis!" << endl;
+		else if (g.checkWin() == results::black) cout << "Wygraly czarne!" << endl;
+		else if (g.checkWin() == results::white) cout << "Wygraly biale!" << endl;
+	}
+
+	//Tryb gry 3
+	else if (gameMode == 3) {
+		g.setAI(new RandomAI(g.getMap()), new RandomAI(g.getMap()));
+		int black = 0;
+		int white = 0;
+		int draw = 0;
+
+		unsigned int games = 0;
+		cout << "Podaj ilosc gier do rozegrania przez AI: ";
+		cin >> games;
+
+		for (int i = 0; i < games; i++) {
+			g.runAI();
+
+			system("CLS");
+			showMap(g.getMap());
+			if (g.checkWin() == results::draw) draw++;
+			else if (g.checkWin() == results::black) black++;
+			else if (g.checkWin() == results::white) white++;
+
+			g.clear();
+		}
+
+		cout << "Wyniki dla rozegranych " << games << " gier:" << endl;
+		cout << "Biale: " << white << endl;
+		cout << "Czarne: " << black << endl;
+		cout << "Remis: " << draw << endl;
+	}
 	
 	system("PAUSE");
 	return 0;
