@@ -33,6 +33,7 @@ public:
 	int getSize() const { return m.getSize(); };
 	int getMapSize() const { return m.getMapSize(); };
 	int getSegmentSize() const { return m.getSegmentSize(); };
+    states getNextState() const;
 	Map& getMap() { return m; }
 
 	/* Klasy zaprzyjaznione */

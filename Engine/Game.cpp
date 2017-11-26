@@ -22,8 +22,8 @@ void Game::clear() {
 
 //Funkcja wykonywania ruchu 
 bool Game::move(moveData md, bool AImove) {
-	//Obliczanie czyj ruch ma nastapic (zaczynaja zawsze biale)
-	if (lastState == states::clear) lastState = states::white;
+    //Obliczanie czyj ruch ma nastapic (zaczynaja zawsze biale)
+    lastState = getNextState();
 
 	//Wykonywanie ruchu z zabezpieczeniem
 	if (!m.move(md.x, md.y, lastState)) return false;
@@ -31,10 +31,7 @@ bool Game::move(moveData md, bool AImove) {
 		//Cofniecie ruchu przy bledzie obrotu
 		m.move(md.x, md.y, states::clear, true);
 		return false;
-	}
-
-	//Przelaczenie gracza na kolejnego
-	lastState = (lastState == states::white) ? states::black : states::white;
+    }
 
 	//Sprawdzianie wyniku po ruchu
 	if (checkWin() != results::nowin) return true;
@@ -89,6 +86,11 @@ void Game::runAI() {
 			ticker = !ticker;
 		} while (checkWin() == results::nowin);
 	}
+}
+
+//Funkcja zwracajaca ruch nastepnej osoby
+states Game::getNextState() const {
+    return (lastState == states::white) ? states::black : states::white;
 }
 
 //Funkcja zwracajaca wartosc danego pola 

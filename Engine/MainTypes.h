@@ -59,4 +59,7 @@ struct moveData {
 	int rotX = -1;
 	int rotY = -1;
 	rotates dir = rotates::none;
+
+	moveData() : x(-1), y(-1), rotX(-1), rotY(-1), dir(rotates::none) {};
+	moveData(int _x, int _y, int _rotX, int _rotY, rotates _dir) : x(_x), y(_y), rotX(_rotX), rotY(_rotY), dir(_dir) {};
 };
